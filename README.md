@@ -1175,17 +1175,15 @@ prometheus-68596d46d7-s92j5           2/2     Running   0          82m    10.244
 
 节点:NodePort
 
-![image-20211209182759502](C:/Users/1111/AppData/Roaming/Typora/typora-user-images/image-20211209182759502.png)
+![配置连接prometheus](https://github.com/daisy-test/prometheus-grafana/blob/master/image-20211209182759502.png)
 
-![image-20211209184632828](C:/Users/1111/AppData/Roaming/Typora/typora-user-images/image-20211209184632828.png)
+![导入监控模板](https://github.com/daisy-test/prometheus-grafana/blob/master/image-20211209184632828.png)
 
-![image-20211209184646049](C:/Users/1111/AppData/Roaming/Typora/typora-user-images/image-20211209184646049.png)
+![选择json文件导入](https://github.com/daisy-test/prometheus-grafana/blob/master/image-20211209184646049.png)
 
-![image-20211209184659369](C:/Users/1111/AppData/Roaming/Typora/typora-user-images/image-20211209184659369.png)
+![节点资源监控展示](https://github.com/daisy-test/prometheus-grafana/blob/master/image-20211209184722792.png)
 
-![image-20211209184722792](C:/Users/1111/AppData/Roaming/Typora/typora-user-images/image-20211209184722792.png)
-
-![image-20211209185007113](C:/Users/1111/AppData/Roaming/Typora/typora-user-images/image-20211209185007113.png)
+![微服务资源监控展示](https://github.com/daisy-test/prometheus-grafana/blob/master/image-20211209185007113.png)
 
 至此，prometheus+grafana+alertmanager监控加邮件告警配置完成
 
