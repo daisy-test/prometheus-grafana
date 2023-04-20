@@ -1,0 +1,87 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: ops
+  name: grafana
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: grafana
+  template:
+    metadata:
+      namespace: kube-system
+      annotations:
+        grafana-version: '1.0'
+      name: grafana
+      labels:
+        app: grafana
+    spec:
+      containers:
+      - name: grafana
+        image: grafana/grafana
+        imagePullPolicy: Always
+        securityContext:
+          runAsUser: 0
+        env:
+        - name: GF_SECURITY_ADMIN_PASSWORD
+          value: "admin"
+        ports:
+        - name: grafana
+          containerPort: 3000
+        resources:
+          requests:
+            memory: "100Mi"
+            cpu: "100m"
+          limits:
+            memory: "2048Mi"
+            cpu: "1024m"
+        volumeMounts:
+          - name: grafana-data
+            mountPath: /var/lib/grafana
+            subPath: grafana
+          - mountPath: /etc/localtime
+            name: timezone
+      securityContext:
+        fsGroup: 472
+        runAsUser: 472
+      volumes:
+      - name: grafana-data
+        persistentVolumeClaim:
+          claimName: grafana
+      - name: timezone
+        hostPath:
+          path: /usr/share/zoneinfo/Asia/Shanghai
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: grafana
+  namespace: ops
+spec:
+  storageClassName: "local-storage"
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 5Gi
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: ops
+  name: grafana
+  annotations:
+    prometheus.io/scrape: 'true'
+  labels:
+    name: grafana
+spec:
+  selector:
+    app: grafana
+  type: NodePort
+  ports:
+  - name: grafana
+    protocol: TCP
+    port: 3000
+    nodePort: 30030
